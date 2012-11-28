@@ -1,0 +1,22 @@
+%p
+  = link_to 'New note', new_note_path, class: 'btn'
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th= Note.human_attribute_name('title')
+      %th= Note.human_attribute_name('body')
+      %th
+  %tbody
+    - @notes.each do |note|
+      %tr
+        %td
+          = note.title
+        %td
+          = truncate note.body, length: 100
+        %td
+          = link_to 'Edit', edit_note_path(note), class: 'btn'
+          = link_to 'Destroy', note, method: :delete, confirm: 'Are you sure?', class: 'btn btn-danger'
+    - if @notes.empty?
+      %tr
+        %td{colspan: 3} A note is not on the list.
